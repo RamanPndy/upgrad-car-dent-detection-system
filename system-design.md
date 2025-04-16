@@ -32,51 +32,7 @@
 
 Here's a high-level architecture diagram of the **MLOps system** for damage detection.
 
-```
-                       +---------------------------+
-                       |   Data Collection (Raw)   |
-                       | (Car Images + Metadata)   |
-                       +---------------------------+
-                                  |
-                                  v
-         +--------------------------------------------+
-         |       Data Versioning & Annotation         |
-         |       (Label Studio + DVC/Git)             |
-         +--------------------------------------------+
-                                  |
-                                  v
-         +--------------------------------------------+
-         |     Data Processing Pipeline (Airflow)     |
-         |    (Preprocessing, Augmentation, Split)    |
-         +--------------------------------------------+
-                                  |
-                                  v
-         +--------------------------------------------+
-         |        Model Training Pipeline (Kubeflow)  |
-         | (YOLOv8 / Detectron2 + MLflow + Weights & Biases) |
-         +--------------------------------------------+
-                                  |
-                                  v
-         +--------------------------------------------+
-         |        Model Registry (MLflow Model Reg.)  |
-         +--------------------------------------------+
-                                  |
-                        -----------|-------------
-                       /                          \
-                      v                            v
-    +------------------------+     +----------------------------+
-    |  Inference Service     |     | Monitoring (Evidently +    |
-    | (FastAPI + TorchServe) |     | Grafana + Prometheus)      |
-    +------------------------+     +----------------------------+
-             |                                 |
-             v                                 v
-   Car Image API Call                Drift Detection / Alerting
-             |                                 |
-             v                                 v
-    +--------------------------+      +-----------------------------+
-    |    Prediction Result     |----->| Retrain Trigger (Airflow)   |
-    +--------------------------+      +-----------------------------+
-```
+![System Design](https://i.postimg.cc/15Pvqksr/mlops-car-dent-detection.png)
 
 ---
 
@@ -296,9 +252,9 @@ An MLOps system ensures the model remains robust, adaptable, and aligned with bu
 
 Below is the architecture for a complete MLOps system using Amazon SageMaker, covering experiment tracking, automated pipelines, deployment, and monitoring.
 
-```
-[Diagram Description - Conceptual MLOps Architecture]
+![Sagemaker System Design](https://i.postimg.cc/sgjHttLg/sagemaker-system-design.png)
 
+```
 Data Layer:
 - Amazon S3: Raw images, labeled datasets, preprocessed data, model artifacts.
 - Amazon RDS: Metadata storage (e.g., image IDs, annotation status).
